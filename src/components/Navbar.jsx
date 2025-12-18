@@ -27,7 +27,7 @@ function Navbar() {
                         {/* Logo */}
                         <div className="flex items-center">
                             <a href="/" className="flex items-center space-x-2">
-                                <img src="../../public/formatix-logo.png" alt="" />
+                                <img src="/formatix-logo.png" alt="" />
                             </a>
                         </div>
 
