@@ -102,7 +102,7 @@ function Home() {
             <div className="max-w-2xl w-full">
                 <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
-                        <img src="../../public/favicon.png" alt="" />
+                        <img src="/favicon.png" alt="" />
                     </div>
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">
                         Image Converter
