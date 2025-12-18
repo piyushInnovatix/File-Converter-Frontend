@@ -54,7 +54,7 @@ function Home() {
         formData.append("file", file);
 
         try {
-            const res = await fetch("https://file-converter-backend-w6xg.onrender.com/convert-image", {
+            const res = await fetch("https://file-converter-backend-we6y.onrender.com/convert-image", {
                 method: "POST",
                 body: formData,
             });
