@@ -3,16 +3,15 @@ import React from 'react'
 
 function Footer() {
     return (
-        <footer className="bg-gray-900 text-gray-300">
+        <footer className="bg-green-950 text-gray-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                     {/* Company Info */}
                     <div className="col-span-1">
                         <div className="flex items-center space-x-2 mb-4">
-                            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">
-                                <FileImage className="h-5 w-5 text-white" />
-                            </div>
-                            <span className="text-xl font-bold text-white">ConvertHub</span>
+                            <a href="/" className="flex items-center space-x-2">
+                                <img src="../../public/formatix-logo.png" alt="" />
+                            </a>
                         </div>
                         <p className="text-sm text-gray-400">
                             The fastest and most reliable online file converter. Convert images, videos, and documents instantly.
@@ -30,17 +29,6 @@ function Footer() {
                         </ul>
                     </div>
 
-                    {/* Company */}
-                    <div>
-                        <h3 className="text-white font-semibold mb-4">Company</h3>
-                        <ul className="space-y-2 text-sm">
-                            <li><a href="#about" className="hover:text-white transition">About Us</a></li>
-                            <li><a href="#pricing" className="hover:text-white transition">Pricing</a></li>
-                            <li><a href="#blog" className="hover:text-white transition">Blog</a></li>
-                            <li><a href="#contact" className="hover:text-white transition">Contact</a></li>
-                        </ul>
-                    </div>
-
                     {/* Legal */}
                     <div>
                         <h3 className="text-white font-semibold mb-4">Legal</h3>
@@ -54,8 +42,8 @@ function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-center items-center">
-                    <p className="text-sm text-gray-400 text-center">
+                <div className="border-t border-green-900 mt-8 pt-8 flex flex-col md:flex-row justify-center items-center">
+                    <p className="text-sm text-green-100 text-center">
                         © 2025 Innovatix Technologies. All rights reserved.
                     </p>
                 </div>

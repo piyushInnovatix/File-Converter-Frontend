@@ -98,11 +98,11 @@ function Home() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white flex items-center justify-center p-4">
             <div className="max-w-2xl w-full">
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-4">
-                        <FileImage className="w-8 h-8 text-white" />
+                    <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
+                        <img src="../../public/favicon.png" alt="" />
                     </div>
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">
                         Image Converter
@@ -142,7 +142,7 @@ function Home() {
                                 </p>
                                 <label
                                     htmlFor="file-input"
-                                    className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg font-medium cursor-pointer hover:shadow-lg transition"
+                                    className="inline-block bg-gradient-to-r from-green-600 to-green-500 text-white px-6 py-2 rounded-lg font-medium cursor-pointer hover:shadow-lg transition"
                                 >
                                     Choose File
                                 </label>
@@ -150,8 +150,8 @@ function Home() {
                         ) : (
                             <div className="flex items-center justify-between bg-gray-50 rounded-lg p-4">
                                 <div className="flex items-center space-x-3 flex-1 min-w-0">
-                                    <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                                        <FileImage className="w-5 h-5 text-blue-600" />
+                                    <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                        <FileImage className="w-5 h-5 text-green-600" />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-medium text-gray-900 truncate">
@@ -196,7 +196,7 @@ function Home() {
                         disabled={loading || !file}
                         className={`w-full mt-6 py-3 px-6 rounded-lg font-medium text-white transition-all ${ loading || !file
                             ? 'bg-gray-300 cursor-not-allowed'
-                            : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:scale-105'
+                            : 'bg-gradient-to-r from-green-600 to-green-500 hover:shadow-lg hover:scale-105'
                             }`}
                     >
                         {loading ? (
@@ -230,15 +230,15 @@ function Home() {
                 </div>
 
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <div className="bg-white/50 backdrop-blur rounded-lg p-4">
+                    <div className="bg-white/100 backdrop-blur rounded-lg p-4">
                         <div className="text-2xl mb-2">⚡</div>
                         <p className="text-sm font-medium text-gray-700">Lightning Fast</p>
                     </div>
-                    <div className="bg-white/50 backdrop-blur rounded-lg p-4">
+                    <div className="bg-white/100 backdrop-blur rounded-lg p-4">
                         <div className="text-2xl mb-2">🔒</div>
                         <p className="text-sm font-medium text-gray-700">100% Secure</p>
                     </div>
-                    <div className="bg-white/50 backdrop-blur rounded-lg p-4">
+                    <div className="bg-white/100 backdrop-blur rounded-lg p-4">
                         <div className="text-2xl mb-2">💯</div>
                         <p className="text-sm font-medium text-gray-700">Free Forever</p>
                     </div>
