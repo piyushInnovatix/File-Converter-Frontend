@@ -10,7 +10,7 @@ function Footer() {
                     <div className="col-span-1">
                         <div className="flex items-center space-x-2 mb-4">
                             <a href="/" className="flex items-center space-x-2">
-                                <img src="../../public/formatix-logo.png" alt="" />
+                                <img src="/formatix-logo.png" alt="" />
                             </a>
                         </div>
                         <p className="text-sm text-gray-400">
