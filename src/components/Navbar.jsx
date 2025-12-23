@@ -23,13 +23,8 @@ function Navbar() {
                         {/* Desktop Navigation */}
                         <div className="hidden md:flex items-center space-x-8">
                             <Link to={"/"} className="text-gray-700 hover:text-green-600 transition">
-                                Image Converter
+                                Converter
                             </Link>
-
-                            <Link to={"/video"} className='text-gray-700 hover:text-green-600 transition'>
-                                Video Converter
-                            </Link>
-
                             <Link to={"/compressor"} className="text-gray-700 hover:text-green-600 transition">
                                 Compressor
                             </Link>

@@ -80,7 +80,7 @@ function Home() {
 
         try {
             const endpoint = fileType === "video" ? "/convert-video" : "/convert-image"
-            const res = await fetch(`http://localhost:5000${ endpoint }`, {
+            const res = await fetch(`https://file-converter-backend-we6y.onrender.com${ endpoint }`, {
                 method: "POST",
                 body: formData,
             });
