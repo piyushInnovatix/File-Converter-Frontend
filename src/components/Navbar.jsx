@@ -8,17 +8,6 @@ function Navbar() {
     const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false)
     const buttonRef = useRef(null)
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (!buttonRef.current && buttonRef.current.contains(e.target)) {
-                setToolsDropdownOpen(false)
-            }
-        }
-
-        document.addEventListener("mousedown", handleClickOutside)
-        return () => document.removeEventListener("mousedown", handleClickOutside)
-    });
-
     return (
         <>
             <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -79,9 +68,6 @@ function Navbar() {
                                 <a href="#contact" className="text-gray-700 hover:text-green-600 transition">
                                     Comressor
                                 </a>
-                                <button className="bg-gradient-to-r from-green-600 to-green-500 text-white px-6 py-2 rounded-lg hover:shadow-lg transition">
-                                    Get Started
-                                </button>
                             </div>
                         </div>
                     )}

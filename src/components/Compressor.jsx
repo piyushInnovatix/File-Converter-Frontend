@@ -1,18 +1,16 @@
-import { useState } from 'react';
-import { Upload, FileImage, Loader2, CheckCircle2, AlertCircle, Download, X } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Download, FileImage, FileType, Loader2, Upload, X } from 'lucide-react';
+import React, { useState } from 'react'
 
-function Home() {
+function Compressor() {
+
     const [file, setFile] = useState(null);
-    const [fileType, setFileType] = useState("")
-    const [format, setFormat] = useState("jpeg")
+    const [fileType, setFileType] = useState("image")
+    const [quality, setQuality] = useState("medium")
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
     const [dragActive, setDragActive] = useState(false);
     // const [outputFormat, setOutputFormat] = useState("jpg");
-
-    const imageFormats = ["jpeg", "png", "webp", "avif", "ico"]
-    const videoFormats = ["mp4", "webm", "gif", "mov"]
 
     const handleFileChange = (e) => {
         setError("");
@@ -23,11 +21,10 @@ function Home() {
 
             if (selectedFile.type.startsWith("video/")) {
                 setFileType("video");
-                setFormat("mp4")
+                setQuality("medium");
             }
             else {
                 setFileType("image")
-                setFormat("jpeg")
             }
         }
     };
@@ -50,21 +47,20 @@ function Home() {
         setSuccess(false);
 
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-            const droppedFile = e.dataTransfer.files[0]
+            const droppedFile = e.dataTransfer.files[0];
             setFile(droppedFile);
 
             if (droppedFile.type.startsWith("video/")) {
                 setFileType("video");
-                setFormat("mp4");
+                setQuality("medium")
             }
             else {
-                setFileType("image");
-                setFormat("jpeg");
+                setFileType("image")
             }
         }
     };
 
-    const handleConvert = async () => {
+    const handleCompress = async () => {
         if (!file) {
             setError("Please select a file");
             return;
@@ -76,11 +72,17 @@ function Home() {
 
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("format", format)
 
         try {
-            const endpoint = fileType === "video" ? "/convert-video" : "/convert-image"
-            const res = await fetch(`http://localhost:5000${ endpoint }`, {
+            let endpoint = "compress-image"
+
+            if (fileType === "video") {
+                endpoint = "compress-video";
+                formData.append("quality", quality);
+                formData.append("format", "mp4")
+            }
+
+            const res = await fetch(`http://localhost:5000/${endpoint}`, {
                 method: "POST",
                 body: formData,
             });
@@ -94,7 +96,7 @@ function Home() {
 
             const a = document.createElement("a");
             a.href = url;
-            a.download = `converted.${ format }`;
+            a.download = fileType === "video" ? `compressed.mp4` : `compressed.jpg`;
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -123,8 +125,6 @@ function Home() {
         return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
     };
 
-    const currentFormats = fileType === "video" ? videoFormats : imageFormats
-
     return (
         <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-white flex items-center justify-center p-4">
             <div className="max-w-2xl w-full">
@@ -133,10 +133,10 @@ function Home() {
                         <img src="/favicon.png" alt="" />
                     </div>
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                        Image Converter
+                        Image and Video Compressor
                     </h1>
                     <p className="text-lg text-gray-600">
-                        Convert to PNG, JPG, WebP or AVIF
+                        Compress
                     </p>
                 </div>
 
@@ -166,7 +166,7 @@ function Home() {
                                     Drop your image file here
                                 </p>
                                 <p className="text-sm text-gray-500 mb-4">
-                                    or click to browse (PNG, JPG, WebP, AVIF)
+                                    Image (PNG, JPG, WebP, AVIF) or Video (MP4, WebM, etc)
                                 </p>
                                 <label
                                     htmlFor="file-input"
@@ -200,32 +200,35 @@ function Home() {
                         )}
                     </div>
 
-                    {file && (
-                        <div className="mt-6 space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Convert to:
-                                </label>
-                                <div className="flex gap-2 flex-wrap">
-                                    {currentFormats.map((fmt) => (
-                                        <button
-                                            key={fmt}
-                                            onClick={() => setFormat(fmt)}
-                                            className={`py-2 px-4 rounded-lg font-medium transition ${ format === fmt
-                                                ? "bg-green-600 text-white"
-                                                : "bg-white border border-gray-300 text-gray-700 hover:border-gray-400"
-                                                }`}
-                                        >
-                                            {fmt.toUpperCase()}
-                                        </button>
-                                    ))}
-                                </div>
+                    {fileType === "video" && file && (
+                        <div className='mt-6 p-4 bg-gray-50 rounded-lg'>
+                            <label className="block text-sm font-medium text-gray-700 mb-3">
+                                Quality
+                            </label>
+                            <div className="flex gap-3">
+                                {["high", "medium", "low"].map((q) => (
+                                    <button
+                                        key={q}
+                                        onClick={() => setQuality(q)}
+                                        className={`flex-1 py-2 px-3 rounded-lg font-medium transition ${ quality === q
+                                            ? "bg-green-600 text-white"
+                                            : "bg-white border border-gray-300 text-gray-700 hover:border-gray-400"
+                                            }`}
+                                    >
+                                        {q.charAt(0).toUpperCase() + q.slice(1)}
+                                    </button>
+                                ))}
                             </div>
+                            <p className="text-xs text-gray-500 mt-2">
+                                {quality === "high" && "Best quality, larger file"}
+                                {quality === "medium" && "Balanced quality and file size"}
+                                {quality === "low" && "Smaller file, lower quality"}
+                            </p>
                         </div>
                     )}
 
                     <button
-                        onClick={handleConvert}
+                        onClick={handleCompress}
                         disabled={loading || !file}
                         className={`w-full mt-6 py-3 px-6 rounded-lg font-medium text-white transition-all ${ loading || !file
                             ? 'bg-gray-300 cursor-not-allowed'
@@ -235,12 +238,12 @@ function Home() {
                         {loading ? (
                             <span className="flex items-center justify-center">
                                 <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                                Converting...
+                                Compressing...
                             </span>
                         ) : (
                             <span className="flex items-center justify-center">
                                 <Download className="w-5 h-5 mr-2" />
-                                Convert to {format.toUpperCase()}
+                                Compress Image
                             </span>
                         )}
                     </button>
@@ -256,7 +259,7 @@ function Home() {
                         <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start space-x-3">
                             <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
                             <p className="text-sm text-green-800">
-                                File converted successfully! Your download should start automatically.
+                                File Compressed successfully! Your download should start automatically.
                             </p>
                         </div>
                     )}
@@ -278,7 +281,7 @@ function Home() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default Home;
+export default Compressor
