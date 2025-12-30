@@ -72,40 +72,40 @@ function Compressor() {
 
         const formData = new FormData();
         formData.append("file", file);
-
+        formData.append("quality", quality);
         try {
-            let endpoint = "compress-image"
+            let endpoint = "compress-image";
 
             if (fileType === "video") {
                 endpoint = "compress-video";
-                formData.append("quality", quality);
-                formData.append("format", "mp4")
+                formData.append("level", quality); // ✅ FIXED
             }
 
-            const res = await fetch(`https://file-converter-backend-we6y.onrender.com/${endpoint}`, {
+            const res = await fetch(`http://localhost:5000/${ endpoint }`, {
                 method: "POST",
                 body: formData,
             });
 
-            if (!res.ok) {
-                throw new Error("File conversion failed");
-            }
+            if (!res.ok) throw new Error("Compression failed");
 
             const blob = await res.blob();
             const url = URL.createObjectURL(blob);
 
             const a = document.createElement("a");
             a.href = url;
-            a.download = fileType === "video" ? `compressed.mp4` : `compressed.jpg`;
+            a.download = fileType === "video"
+                ? "compressed.mp4"
+                : "compressed.jpg";
+
             document.body.appendChild(a);
             a.click();
             a.remove();
-
             URL.revokeObjectURL(url);
+
             setSuccess(true);
         } catch (err) {
-            setError("An error occurred during conversion");
             console.error(err);
+            setError("An error occurred during compression");
         } finally {
             setLoading(false);
         }
@@ -133,10 +133,10 @@ function Compressor() {
                         <img src="/favicon.png" alt="" />
                     </div>
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                        Image and Video Compressor
+                        File Compressor
                     </h1>
                     <p className="text-lg text-gray-600">
-                        Compress
+                        Compress Images and Videos
                     </p>
                 </div>
 
@@ -163,7 +163,7 @@ function Compressor() {
                             <div className="text-center">
                                 <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                                 <p className="text-lg font-medium text-gray-700 mb-2">
-                                    Drop your image file here
+                                    Drop your file here
                                 </p>
                                 <p className="text-sm text-gray-500 mb-4">
                                     Image (PNG, JPG, WebP, AVIF) or Video (MP4, WebM, etc)

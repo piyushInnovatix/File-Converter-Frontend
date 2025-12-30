@@ -12,7 +12,7 @@ function Home() {
     // const [outputFormat, setOutputFormat] = useState("jpg");
 
     const imageFormats = ["jpeg", "png", "webp", "avif", "ico"]
-    const videoFormats = ["mp4", "webm", "gif", "mov"]
+    const videoFormats = ["mp4", "gif", "mov"]
 
     const handleFileChange = (e) => {
         setError("");
@@ -80,7 +80,7 @@ function Home() {
 
         try {
             const endpoint = fileType === "video" ? "/convert-video" : "/convert-image"
-            const res = await fetch(`https://file-converter-backend-we6y.onrender.com${ endpoint }`, {
+            const res = await fetch(`http://localhost:5000${ endpoint }`, {
                 method: "POST",
                 body: formData,
             });
@@ -133,10 +133,10 @@ function Home() {
                         <img src="/favicon.png" alt="" />
                     </div>
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                        Image Converter
+                        File Converter
                     </h1>
                     <p className="text-lg text-gray-600">
-                        Convert to PNG, JPG, WebP or AVIF
+                        Convert to Images and Video files
                     </p>
                 </div>
 
@@ -163,10 +163,10 @@ function Home() {
                             <div className="text-center">
                                 <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                                 <p className="text-lg font-medium text-gray-700 mb-2">
-                                    Drop your image file here
+                                    Drop your files here
                                 </p>
                                 <p className="text-sm text-gray-500 mb-4">
-                                    or click to browse (PNG, JPG, WebP, AVIF)
+                                    or click to browse files
                                 </p>
                                 <label
                                     htmlFor="file-input"
