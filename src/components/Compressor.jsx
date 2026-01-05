@@ -74,12 +74,7 @@ function Compressor() {
         formData.append("file", file);
         formData.append("quality", quality);
         try {
-            let endpoint = "compress-image";
-
-            if (fileType === "video") {
-                endpoint = "compress-video";
-                formData.append("level", quality); // ✅ FIXED
-            }
+            const endpoint = fileType === "video" ? "compress-video" : "compress-image";
 
             const res = await fetch(`https://file-converter-backend-we6y.onrender.com/${ endpoint }`, {
                 method: "POST",
