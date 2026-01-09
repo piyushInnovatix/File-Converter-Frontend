@@ -13,14 +13,12 @@ function Navbar() {
             <nav className="bg-white shadow-md sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
-                        {/* Logo */}
                         <div className="flex items-center">
                             <a href="/" className="flex items-center space-x-2">
                                 <img src="/formatix-logo.png" alt="" />
                             </a>
                         </div>
 
-                        {/* Desktop Navigation */}
                         <div className="hidden md:flex items-center space-x-8">
                             <Link to={"/"} className="text-gray-700 hover:text-green-600 transition">
                                 Converter
@@ -30,14 +28,12 @@ function Navbar() {
                             </Link>
                         </div>
 
-                        {/* CTA Button (Desktop) */}
                         <div className="hidden md:block">
                             <button className="bg-gradient-to-r from-green-600 to-green-500 text-white px-6 py-2 rounded-lg hover:shadow-lg transition">
                                 Get Started
                             </button>
                         </div>
 
-                        {/* Mobile Menu Button */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="md:hidden p-2 rounded-lg hover:bg-gray-100"
@@ -50,19 +46,15 @@ function Navbar() {
                         </button>
                     </div>
 
-                    {/* Mobile Menu */}
                     {mobileMenuOpen && (
                         <div className="md:hidden py-4 border-t">
                             <div className="flex flex-col space-y-4">
-                                <a href="#pricing" className="text-gray-700 hover:text-green-600 transition">
-                                    Image Converter
-                                </a>
-                                <a href="#about" className="text-gray-700 hover:text-green-600 transition">
-                                    Video Converter
-                                </a>
-                                <a href="#contact" className="text-gray-700 hover:text-green-600 transition">
+                                <Link to={"/"} className="text-gray-700 hover:text-green-600 transition">
+                                    Converter
+                                </Link>
+                                <Link to={"/compressor"} className="text-gray-700 hover:text-green-600 transition">
                                     Comressor
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     )}

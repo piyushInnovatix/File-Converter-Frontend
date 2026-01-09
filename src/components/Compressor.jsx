@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 function Compressor() {
 
     const [file, setFile] = useState(null);
+    const [format, setFormat] = useState("jpeg")
     const [fileType, setFileType] = useState("image")
     const [quality, setQuality] = useState("medium")
     const [loading, setLoading] = useState(false);
@@ -11,6 +12,9 @@ function Compressor() {
     const [success, setSuccess] = useState(false);
     const [dragActive, setDragActive] = useState(false);
     // const [outputFormat, setOutputFormat] = useState("jpg");
+
+    const imageFormats = ["png", "jpg", "webp", "ico"]
+    const videoFormats = ["mp4", "mov"]
 
     const handleFileChange = (e) => {
         setError("");
@@ -76,7 +80,7 @@ function Compressor() {
         try {
             const endpoint = fileType === "video" ? "compress-video" : "compress-image";
 
-            const res = await fetch(`https://file-converter-backend-we6y.onrender.com/${ endpoint }`, {
+            const res = await fetch(`http://localhost:5000/${ endpoint }`, {
                 method: "POST",
                 body: formData,
             });
@@ -85,8 +89,10 @@ function Compressor() {
 
             const blob = await res.blob();
             const url = URL.createObjectURL(blob);
-
             const a = document.createElement("a");
+
+            const originalName = file.name.split(".").slice(0, -1).join(".")
+
             a.href = url;
             a.download = fileType === "video"
                 ? "compressed.mp4"

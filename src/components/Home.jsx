@@ -11,8 +11,8 @@ function Home() {
     const [dragActive, setDragActive] = useState(false);
     // const [outputFormat, setOutputFormat] = useState("jpg");
 
-    const imageFormats = ["jpeg", "png", "webp", "avif", "ico"]
-    const videoFormats = ["mp4", "gif", "mov"]
+    const imageFormats = ["jpeg", "bmp", "tiff", "png", "webp", "avif", "ico", "gif", "odd", "psd", "tga",];
+    const videoFormats = ["mp4", "mov"]
 
     const handleFileChange = (e) => {
         setError("");
@@ -79,8 +79,8 @@ function Home() {
         formData.append("format", format)
 
         try {
-            const endpoint = fileType === "video" ? "/convert-video" : "/convert-image"
-            const res = await fetch(`https://file-converter-backend-we6y.onrender.com${ endpoint }`, {
+            const endpoint = fileType === "video" ? "convert-video" : "image-convert"
+            const res = await fetch(`http://localhost:5000/${ endpoint }`, {
                 method: "POST",
                 body: formData,
             });
@@ -91,10 +91,11 @@ function Home() {
 
             const blob = await res.blob();
             const url = URL.createObjectURL(blob);
-
             const a = document.createElement("a");
+            const orignalName = file.name.split('.').slice(0, -1).join('.')
+
             a.href = url;
-            a.download = `converted.${ format }`;
+            a.download = `${ orignalName }.${ format }`;
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -102,8 +103,8 @@ function Home() {
             URL.revokeObjectURL(url);
             setSuccess(true);
         } catch (err) {
-            setError("An error occurred during conversion");
-            console.error(err);
+            setError("An error occurred during conversion. Please try again later.");
+            console.error(err); 
         } finally {
             setLoading(false);
         }
