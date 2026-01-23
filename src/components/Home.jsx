@@ -79,8 +79,8 @@ function Home() {
         formData.append("format", format)
 
         try {
-            const endpoint = fileType === "video" ? "convert-video" : "image-convert"
-            const res = await fetch(`http://localhost:5000/${ endpoint }`, {
+            const endpoint = fileType === "video" ? "/video/convert" : "/image/convert"
+            const res = await fetch(`https://fileconverter-2-yt96.onrender.com/api${ endpoint }`, {
                 method: "POST",
                 body: formData,
             });
@@ -104,7 +104,7 @@ function Home() {
             setSuccess(true);
         } catch (err) {
             setError("An error occurred during conversion. Please try again later.");
-            console.error(err); 
+            console.error(err);
         } finally {
             setLoading(false);
         }
